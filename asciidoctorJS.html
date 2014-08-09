@@ -1,0 +1,131 @@
+<html>
+<head>
+<style>
+@font-face {
+   font-family: myFirstFont;
+   font-family: sans-serif; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;
+}
+
+h1 {
+    color: #A52A2A;
+}
+
+h3 {
+    color: IndianRed;
+}
+
+p.ex {
+    color: rgb(0,0,255);
+}
+div {
+   font-family: "sans-serif";
+}
+</style>
+<title>
+Simple JS port for ASCIIDOCTOR | ASCII --> HTML Generator
+</title>
+</head>
+<body onload="parse()">
+<h1> Simple JS port for ASCIIDOCTOR | ASCII --> HTML Generator </h1>
+<table>
+<tr>
+<td>
+<h2> Enter ASCII Text here </h2>
+<textarea id="ascii" rows="10" cols="100">
+=JS only port for ASCII doctor
+__
+I am lover of <a href="www.asciidoctor.org"> asciidoctor </a> project.
+As part of cloud computing course, I am currently learning how to use amazon s3 service.
+
+==Hands on JS
+Using this opportunity to port the concept of asciidoctor in client-only JavaScripting.
+It is fun &#9786;
+
+Unordered lists can be generated simply using bullets.
+*Item1
+*Item2
+__
+===Viswa [<a href="kspviswa.wordpress.com"> kspviswa.wordpress.com </a>]
+__
+</textarea>
+</td>
+<td>
+<h3> Source code released on <a href="www.github.com/kspviswa/myasciidoctorJS">github </a>. Feel free to fork.<br>
+Relased under <a href="http://opensource.org/licenses/MIT">MIT license </a>. </h3>
+<h2> Release notes </h2>
+<h3> Version 1 </h3>
+<ol>
+<li> Supports only ASCII to HTML conversion </li>
+<li> Supports H1, H2, H3, HR , Unordered Lists. </li>
+</ol>
+</td>
+</tr> 
+<tr>
+<td>
+<button type="button" onclick="parse()"> Parse </button>
+</td>
+</tr>
+</table>
+<h2> HTML generated document here </h2>
+<hr size="5">
+<div class="ex" id="doc">
+</div>
+<script>
+function parse() {
+	var lines = document.getElementById("ascii").value.split('\n');
+	var htmldoc = "";
+	for(var i=0; i < lines.length; i++)
+	{
+    var theline = lines[i];
+
+    // Parse for headings
+    var nPos = theline.lastIndexOf("=");
+    var newString = theline;
+    switch(nPos)
+    {
+      case 0:
+      tempString = theline.slice((nPos+1),(theline.length - nPos));
+      newString = "<h1>" + tempString + "</h1><br>";
+      break;
+      case 1:
+      tempString = theline.slice((nPos+1),(theline.length - nPos+1));
+      newString = "<h2>" + tempString + "</h2><br>";
+      break;
+      case 2:
+      tempString = theline.slice((nPos+1),(theline.length - nPos+2));
+      newString = "<h3>" + tempString + "</h3><br>";
+      break;
+      default:
+      break;
+    }
+
+    // Parse for line
+    var nPos = theline.lastIndexOf("__");
+    switch(nPos)
+    {
+      case 0:
+      newString = "<hr>";
+      break;
+      default:
+      break;
+    }
+
+    // Parse for unordered list
+    var nPos = theline.lastIndexOf("*");
+    switch(nPos)
+    {
+      case 0:
+      tempString = theline.slice((nPos+1),(theline.length - nPos));
+      newString = "<ul><li>" + tempString + "</li></ul>";
+      break;
+      default:
+      break;
+    }
+
+    htmldoc = htmldoc.concat(newString);
+}
+    document.getElementById("doc").innerHTML=htmldoc;
+}
+</script>
+</body>
+</html>
