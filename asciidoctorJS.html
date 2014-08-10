@@ -50,7 +50,7 @@ __
 </textarea>
 </td>
 <td>
-<h3> Source code released on <a href="www.github.com/kspviswa/myasciidoctorJS">github </a>. Feel free to fork.<br>
+<h3> Source code released on <a href="http://www.github.com/kspviswa/myasciidoctorJS">github </a>. Feel free to fork.<br>
 Relased under <a href="http://opensource.org/licenses/MIT">MIT license </a>. </h3>
 <h2> Release notes </h2>
 <h3> Version 1 </h3>
@@ -68,8 +68,22 @@ Relased under <a href="http://opensource.org/licenses/MIT">MIT license </a>. </h
 </table>
 <h2> HTML generated document here </h2>
 <hr size="5">
+<table style="width:100%">
+<tr>
+<td align="justify">
+<h2> Save as in html format </h2> <br>
+<!--div class="ex" id="dochtml"-->
+<textarea id="txhtml" rows="10" cols="100">
+</textarea>
+<!--/div-->
+</td>
+<td align="justify">
+<h2> Preview </h2> <br>
 <div class="ex" id="doc">
-</div>
+</td>
+</tr>
+</table>
+</html>
 <script>
 function parse() {
 	var lines = document.getElementById("ascii").value.split('\n');
@@ -125,6 +139,7 @@ function parse() {
     htmldoc = htmldoc.concat(newString);
 }
     document.getElementById("doc").innerHTML=htmldoc;
+    document.getElementById("txhtml").innerHTML="<html><body>"+ htmldoc + "</body></html>";
 }
 </script>
 </body>
